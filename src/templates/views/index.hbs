@@ -9,56 +9,54 @@
 <body>
     {{>header}}
 
-    <div class="main-content">
+    <section class="main-content">
 
         <h1>{{pageTitle}}</h1>
 
-    <p class="intro-text">Discover new movies, find similar titles and curate your taste with amazing movie options through the search below.</p>
+        <p class="intro-text">Discover new movies, find similar titles and curate your taste with amazing movie options through the search below.</p>
 
    
 
-    {{!-- <p>Search thousands of films using real-time data from The Movie Database.
-        Explore similar movies and uncover hidden gems you might have missed.</p>
-     --}}
+        <form action="/search">
+            <input placeholder="Search for a movie title here" name="movie" type="text" required>
+            <button type="submit">Search</button>
+        </form>
 
-    <form action="/search">
-        <input placeholder="Search for a movie title here" name="movie" type="text" required>
-        <button type="submit">Search</button>
-    </form>
+        <img src="/images/example.jpg" class="example-image">
 
-     <img src="/images/example.jpg" class="example-image">
+        </div>
 
-    </div>
+        <div>
+            <h2>Your curated watchlist</h2>
+            {{#if watchlist}}
+        <ul id="watchlist">
+            {{#each movies}}
+                <li class="movie-item">
 
-    <div>
-        <h2>Your curated watchlist</h2>
-        {{#if watchlist}}
-    <ul id="watchlist">
-        {{#each movies}}
-            <li class="movie-item">
+                    {{#if poster_path}}
+                        <img
+                            src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+                            alt="{{title}} poster"
+                            class="movie-poster"
+                        >
+                    {{else}}
+                        <div class="poster-placeholder">
+                            No image available
+                        </div>
+                    {{/if}}
 
-                {{#if poster_path}}
-                    <img
-                        src="https://image.tmdb.org/t/p/w500{{poster_path}}"
-                        alt="{{title}} poster"
-                        class="movie-poster"
-                    >
-                {{else}}
-                    <div class="poster-placeholder">
-                        No image available
-                    </div>
-                {{/if}}
+                    <h3>{{title}}</h3>
 
-                <h3>{{title}}</h3>
+                </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>No similar movies were found. Please try a new title.</p>
+        
+        {{/if}}
+        </div>
 
-            </li>
-        {{/each}}
-    </ul>
-    {{else}}
-    <p>No similar movies were found. Please try a new title.</p>
-
-    {{/if}}
-    </div>
+    </section>
     
 
     {{>footer}}
