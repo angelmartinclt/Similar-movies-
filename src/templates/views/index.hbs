@@ -29,6 +29,36 @@
      <img src="/images/example.jpg" class="example-image">
 
     </div>
+
+    <div>
+        <h2>Your curated watchlist</h2>
+        {{#if watchlist}}
+    <ul id="watchlist">
+        {{#each movies}}
+            <li class="movie-item">
+
+                {{#if poster_path}}
+                    <img
+                        src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+                        alt="{{title}} poster"
+                        class="movie-poster"
+                    >
+                {{else}}
+                    <div class="poster-placeholder">
+                        No image available
+                    </div>
+                {{/if}}
+
+                <h3>{{title}}</h3>
+
+            </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No similar movies were found. Please try a new title.</p>
+
+    {{/if}}
+    </div>
     
 
     {{>footer}}

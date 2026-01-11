@@ -4,23 +4,22 @@ const express = require('express');
 const hbs = require ('hbs');
 const app = express();
 
-
-
+let watchlist = [];
 const { searchMovie, findSimilar }= require('./tmdb');
 
 //path
-const publicDir = path.join(__dirname, '../../public')
-const viewsDir = path.join(__dirname, '../templates/views')
+const publicDir = path.join(__dirname, '../../public');
+const viewsDir = path.join(__dirname, '../templates/views');
 
-const partialsDir = path.join(__dirname, '../templates/partials')
+const partialsDir = path.join(__dirname, '../templates/partials');
 
 //handlers
-app.set('view engine', 'hbs')
-app.set('views', viewsDir)
-hbs.registerPartials(partialsDir)
+app.set('view engine', 'hbs');
+app.set('views', viewsDir);
+hbs.registerPartials(partialsDir);
 
 //setup
-app.use(express.static(publicDir))
+app.use(express.static(publicDir));
 
 
 //index page
@@ -28,8 +27,14 @@ app.get('/', (req,res) =>{
     res.render('index',{
         headerTitle: 'Find groundbreaking films, experience breathtaking stories',
         pageTitle: 'Home page',
-    })
-})
+        watchlist
+    });
+});
+
+app.get('/watchlist', (req, res) => {
+    const {id, title, poster_path} = req.query; 
+
+});
 
 //search
 app.get("/search", async (req,res) => {
@@ -40,8 +45,8 @@ app.get("/search", async (req,res) => {
         headerTitle: 'Find groundbreaking films, experience breathtaking stories',
         movies: results,
         pageTitle: "Results for : " + movie
-    })
-})
+    });
+});
 
 //similar
 app.get('/similar', async (req, res) => {
@@ -52,8 +57,8 @@ app.get('/similar', async (req, res) => {
         headerTitle: 'Find groundbreaking films, experience breathtaking stories',
         movies: results,
         pageTitle: 'Similar movies :'
-    })
-})
+    });
+});
 
 //letterbox
 app.get('/letterboxd',  (req, res) => {
@@ -61,19 +66,19 @@ app.get('/letterboxd',  (req, res) => {
     res.render ('letterbox', {
         headerTitle: 'Find groundbreaking films, experience breathtaking stories',
         pageTitle: 'Letterboxd'
-    })
-})
+    });
+});
 
 //404
 app.use((req, res) => {
     res.render('404', {
         pageTitle: '404',
         errorMessage: 'Page not found.'
-    })
-})
+    });
+});
 
 //server
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log('Server is running', PORT)
-})
+});
