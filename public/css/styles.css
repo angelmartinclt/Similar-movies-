@@ -500,7 +500,7 @@ button:hover{
 
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 768px){
+@media (max-width: 760px){
     .navigation-link{
         font-size: 24px;
     }
